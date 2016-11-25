@@ -10,7 +10,14 @@
 #' @param scale either a logical value or a numeric vector of length equal to the number of active
 #' variables in the analysis
 #' 
-#' @return an object of class "mfa"
+#' @return 
+#' The returned value is an object of class "mfa" with the following elements:
+#' eigenvalues: a vector containing eigenvalues for GSVD
+#' cfs: a matrix of common factor scores
+#' pfs: a list of partial factor scores for each table
+#' loadings: a matrix of loadings
+#' a_weights: alpha weight for each table
+#' 
 #' @importFrom methods new
 #' @export
 
@@ -35,21 +42,25 @@ mfa = function(data, sets, ncomps = NULL, center = TRUE, scale = TRUE){
   if (is.null(ncomps)){
     new(Class = "mfa",
         ncomps = length(d),
+        sets = sets,
         center = center,
         scale = scale,
         eigenvalues = eigenvalues,
         cfs = cfs,
         pfs = pfs,
-        loadings = Q)
+        loadings = Q,
+        a_weights = diag(A))
   }else{
     new(Class = "mfa",
         ncomps = ncomps,
+        sets = sets,
         center = center,
         scale = scale,
         eigenvalues = eigenvalues[1:ncomps],
         cfs = cfs[,1:ncomps],
         pfs = pfs,
-        loadings = Q[,1:ncomps])
+        loadings = Q[,1:ncomps],
+        a_weights = diag(A))
   }
   
 }

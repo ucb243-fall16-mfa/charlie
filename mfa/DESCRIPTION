@@ -10,8 +10,8 @@ LazyData: TRUE
 Collate:
     'classes.R'
     'ctr_observations.R'
-    'ctr_tables.R'
     'ctr_variables.R'
+    'ctr_tables.R'
     'mfa.R'
 RoxygenNote: 5.0.1
 Imports:
