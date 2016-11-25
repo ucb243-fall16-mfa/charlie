@@ -2,13 +2,16 @@ Package: mfa
 Type: Package
 Title: Multiple Factor Analysis
 Version: 0.1.0
-Author: Anna Liu, Carson McNeil
+Author: Anna Liu, Carson McNeil, Rui Wang, Jingtian Yao
 Maintainer: Anna Liu <liuanna626@gmail.com>
 Description: A package for multiple factor analysis.
 License: GPL-2 | GPL-3
 LazyData: TRUE
 Collate:
     'classes.R'
+    'ctr_observations.R'
+    'ctr_tables.R'
+    'ctr_variables.R'
     'mfa.R'
 RoxygenNote: 5.0.1
 Imports:
