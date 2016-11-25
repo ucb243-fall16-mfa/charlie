@@ -25,12 +25,24 @@
 # main function
 mfa = function(data, sets, ncomps = NULL, center = TRUE, scale = TRUE){
   # main function
+  sets = convert_sets(data, sets)
   data1 = preprocess(data,center,scale)
   res = gsvd_mfa(data1,sets,ncomps)
   create_mfa(res, sets, center, scale, ncomps)
 }
 
 # helper functions for mfa
+convert_sets = function(data, sets){
+  #convert the names of active variables to column indices
+  lapply(sets, function(x){
+    if(class(x)=="character"){
+      which(colnames(data)%in%x)
+    }else{
+      x
+    }
+  })
+}
+
 preprocess = function(data, center=TRUE, scale=TRUE){
   # preprocessing: center + normalize
   d = scale(as.matrix(data), center = center, scale = scale)
