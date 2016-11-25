@@ -1,15 +1,19 @@
-#' ctr_observation
+#' ctr_observations
 #'
-#' ctr_observation
+#' ctr_observations
 #' @include classes.R
 #' @param object a `mfa` object
 #' 
 #' @return a matrix with contribution of an observation to a dimension
+#' @rdname ctr_observations
 #' @export
 
-ctr_observations = function(object){
-  if (class(object)!="mfa"){
-    stop("Invalid class of object")
-  }
-  apply(object@cfs, 2, function(x){x^2/sum(x^2)})
-}
+setGeneric("ctr_observations",
+           function(object) standardGeneric("ctr_observations") )
+
+#' @describeIn ctr_observations contribution of an observation for mfa
+setMethod("ctr_observations", 
+          signature = "mfa",
+          function(object){
+            apply(object@cfs, 2, function(x){x^2/sum(x^2)})
+          })
