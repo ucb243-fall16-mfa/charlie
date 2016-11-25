@@ -28,6 +28,6 @@ loadings a matrix of loadings
 a_weights alpha weight for each table
 }
 \description{
-mfa
+Multiple Factor Analysis
 }
 
