@@ -8,6 +8,8 @@ Description: A package for multiple factor analysis.
 License: GPL-2 | GPL-3
 LazyData: TRUE
 Collate:
+    'RV.R'
+    'RV_table.R'
     'classes.R'
     'ctr_observations.R'
     'ctr_variables.R'

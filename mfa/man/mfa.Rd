@@ -21,11 +21,11 @@ variables in the analysis}
 }
 \value{
 The returned value is an object of class "mfa" with the following elements:
-eigenvalues: a vector containing eigenvalues for GSVD
-cfs: a matrix of common factor scores
-pfs: a list of partial factor scores for each table
-loadings: a matrix of loadings
-a_weights: alpha weight for each table
+eigenvalues a vector containing eigenvalues for GSVD
+cfs a matrix of common factor scores
+pfs a list of partial factor scores for each table
+loadings a matrix of loadings
+a_weights alpha weight for each table
 }
 \description{
 mfa
