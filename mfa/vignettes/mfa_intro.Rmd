@@ -1,0 +1,17 @@
+---
+title: "MFA Introduction"
+author: "Stat 243"
+date: "11/24/2016"
+output: rmarkdown::html_vignette
+---
+
+# Example
+Here is an short example for the package
+```{r}
+library(mfa)
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+data1 = data[,2:54]
+sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+result = mfa(data1, sets, ncomps = 2, center = TRUE, scale = TRUE)
+result
+```
