@@ -21,15 +21,17 @@ We can get the dataset as follows:
 data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
 # The first column is just wine IDs, and the last few columns are supplementary physical data.
 # Columns 2-54 are the actual sets of ratings.
-data1 = data[,2:54]
+analysis_data = data[,2:54]
 ```
 The `mfa` class requires a `sets` argument, specifying which columns belong to each table respectively. `sets` is a list of vectors specifying the column indices. The following `sets` argument shows the columns for each table.
-```{r]}
-sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+```{r}
+variable_tables = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
 ```
 
 To use, the package, simply instantiate an `mfa` object, which will do the computations necessary for the core analysis, and then access the various results of the analysis using the object's methods and slots:
 ```{r}
 library(mfa)
-result = mfa(data1, sets, ncomps = 2, center = TRUE, scale = TRUE)
+# We pass the data, the table specification, the number of components, and arguments to the `scale`
+# function in order to z-score the data.
+result = mfa(analysis_data, variable_tables, ncomps = 2, center = TRUE, scale = TRUE)
 ```
