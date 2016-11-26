@@ -7,25 +7,25 @@
 mfa(data, sets, ncomps = NULL, center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{data}{data set (matrix or data frame).}
+\item{data}{data set (matrix or data frame). Dimensions must be observations X variables.}
 
-\item{sets}{list of vectors indicating the sets of variables (i.e. the blocks).}
+\item{sets}{list of vectors indicating the sets of variables (i.e. the mfa blocks).}
 
-\item{ncomps}{integer indicating how many number of components (i.e. factors) are to be extracted.}
+\item{ncomps}{integer indicating how many components (i.e. factors) should be used in the dimensionality reduction.}
 
 \item{center}{either a logical value or a numeric vector of length equal to the number of active
-variables in the analysis}
+variables in the analysis. (passed to the \code{scale} function)}
 
 \item{scale}{either a logical value or a numeric vector of length equal to the number of active
-variables in the analysis}
+variables in the analysis (passed to the \code{scale} function)}
 }
 \value{
-The returned value is an object of class "mfa" with the following elements:
-eigenvalues a vector containing eigenvalues for GSVD
-cfs a matrix of common factor scores
-pfs a list of partial factor scores for each table
-loadings a matrix of loadings
-a_weights alpha weight for each table
+The returned value is an object of class "mfa" with the following elements: \cr
+\code{eigenvalues} a vector containing eigenvalues for GSVD \cr
+\code{cfs} a matrix of common factor scores \cr
+\code{pfs} a list of partial factor scores for each table \cr
+\code{loadings} a matrix of loadings \cr
+\code{a_weights} alpha weight for each table \cr
 }
 \description{
 Multiple Factor Analysis
