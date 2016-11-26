@@ -1,19 +1,36 @@
 ---
-title: "MFA Introduction"
+title: "Using the MFA package"
 author: "Stat 243"
 date: "11/24/2016"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the MFA package}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
-# Package Installation
-```{r}
+## Package Installation
+```{r install,echo=FALSE}
 devtools::install_git("https://github.com/cmcneil/project-243","mfa")
 ```
-# Example
-Here is a short example for the package
+## Example - Wines dataset
+To demonstrate an example of how to use the package, we will use the wines dataset. This dataset consists of ratings for 12 different wines from 10 different wine critics. The critics were forced to rate the wines according to several standardized rating scales, as well as add their own ratings according to whatever rating system they wished. See [Abdi et al, 2013](https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf)
+
+We can get the dataset as follows:
+```{r}
+# Download the dataset
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+# The first column is just wine IDs, and the last few columns are supplementary physical data. Columns 2-54 are the
+# actual sets of ratings.
+data1 = data[,2:54]
+```
+The `mfa` class requires a `sets` argument, specifying which columns belong to each table respectively. `sets` is a list of vectorrs specifying the column indices. The following `sets` argument shows the columns for each table.
+```{r]}
+sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+```
+
+
+
 ```{r}
 library(mfa)
-data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
-data1 = data[,2:54]
-sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
 result = mfa(data1, sets, ncomps = 2, center = TRUE, scale = TRUE)
 ```
