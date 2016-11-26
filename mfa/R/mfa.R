@@ -3,13 +3,13 @@
 #' Multiple Factor Analysis
 #' 
 #' @include classes.R
-#' @param data data set (matrix or data frame).
-#' @param sets list of vectors indicating the sets of variables (i.e. the blocks).
-#' @param ncomps integer indicating how many number of components (i.e. factors) are to be extracted.
+#' @param data data set (matrix or data frame). Dimensions must be observations X variables.
+#' @param sets list of vectors indicating the sets of variables (i.e. the mfa blocks).
+#' @param ncomps integer indicating how many components (i.e. factors) should be used in the dimensionality reduction.
 #' @param center either a logical value or a numeric vector of length equal to the number of active
-#' variables in the analysis
+#' variables in the analysis. (passed to the \code{scale} function)
 #' @param scale either a logical value or a numeric vector of length equal to the number of active
-#' variables in the analysis
+#' variables in the analysis (passed to the \code{scale} function)
 #' 
 #' @return 
 #' The returned value is an object of class "mfa" with the following elements: \cr
