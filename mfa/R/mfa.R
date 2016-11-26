@@ -12,12 +12,12 @@
 #' variables in the analysis
 #' 
 #' @return 
-#' The returned value is an object of class "mfa" with the following elements:
-#' eigenvalues a vector containing eigenvalues for GSVD
-#' cfs a matrix of common factor scores
-#' pfs a list of partial factor scores for each table
-#' loadings a matrix of loadings
-#' a_weights alpha weight for each table
+#' The returned value is an object of class "mfa" with the following elements: \cr
+#' \code{eigenvalues} a vector containing eigenvalues for GSVD \cr
+#' \code{cfs} a matrix of common factor scores \cr
+#' \code{pfs} a list of partial factor scores for each table \cr
+#' \code{loadings} a matrix of loadings \cr
+#' \code{a_weights} alpha weight for each table \cr
 #' 
 #' @importFrom methods new
 #' @export
