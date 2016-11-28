@@ -19,5 +19,8 @@ RoxygenNote: 5.0.1
 Imports:
     methods
 Suggests:
-    testthat, knitr, rmarkdown
+    testthat,
+    knitr,
+    rmarkdown,
+    devtools
 VignetteBuilder: knitr
