@@ -71,5 +71,3 @@ setMethod(
 
   }
 )
-
-print(m,data)
