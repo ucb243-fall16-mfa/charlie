@@ -65,9 +65,11 @@ setMethod(
       text(x@loadings[x@sets[[1]],][,1], x@loadings[x@sets[[1]],][,2],labels = colnames(data[x@sets[[i]]]),
            pos = 4, col = "black")
       # graphic title
-      title(paste("Partial Factor Scores of table",i))
+      title(paste("Partial Factor Scores and variable loadings for table",i))
       i = i + 1
     }
 
   }
 )
+
+print(m,data)
