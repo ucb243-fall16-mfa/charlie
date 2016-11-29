@@ -60,9 +60,9 @@ setMethod(
       text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(data),
            pos = 4, col = "gray50")
       # plot points for loadings
-      points(x@loadings[x@sets[[1]],][,1], x@loadings[x@sets[[1]],][,2], pch = 17, col = "red")
+      points(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2], pch = 17, col = "red")
       # plot text for loadings
-      text(x@loadings[x@sets[[1]],][,1], x@loadings[x@sets[[1]],][,2],labels = colnames(data[x@sets[[i]]]),
+      text(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],labels = colnames(data[x@sets[[i]]]),
            pos = 4, col = "black")
       # graphic title
       title(paste("Partial Factor Scores and variable loadings for table",i))
@@ -71,3 +71,4 @@ setMethod(
 
   }
 )
+
