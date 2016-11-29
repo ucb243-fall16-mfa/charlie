@@ -13,7 +13,7 @@
 #' 
 #' @return 
 #' The returned value is an object of class "mfa" with the following elements: \cr
-#' \code{eigenvalues} a vector containing eigenvalues for GSVD \cr
+#' \code{eigenvalues} a vector containing eigenvalues for the final factors \cr
 #' \code{cfs} a matrix of common factor scores \cr
 #' \code{pfs} a list of partial factor scores for each table \cr
 #' \code{loadings} a matrix of loadings \cr
@@ -27,7 +27,7 @@ mfa = function(data, sets, ncomps = NULL, center = TRUE, scale = TRUE){
   # main function
   sets = convert_sets(data, sets)
   data1 = preprocess(data,center,scale)
-  res = gsvd_mfa(data1,sets,ncomps)
+  res = compromise_stats(data1,sets,ncomps)
   create_mfa(res, sets, center, scale, ncomps)
 }
 
@@ -83,20 +83,21 @@ partial_factor_score = function(tables, set, a, Q, ncomps=NULL){
   return(pfs)
 }
 
-gsvd_mfa = function(data, sets, ncomps){
-  # GSVD for mfa
+compromise_stats = function(data, sets, ncomps){
+  # Using other subfunctions, run a standard PCA on the corrected
+  # dataset to find the compromise.
   tables = split_tables(data,sets)
   a = alpha_weight(tables)
   A = weight_matrix(tables, a)
   M = diag(rep(1/nrow(data), nrow(data))) #diagonal mass matrix
   W = as.matrix(data)
-  W2 = sqrt(M)%*%W%*%sqrt(A)
-  GSVD = svd(W2)
+  W_weighted = sqrt(M)%*%W%*%sqrt(A)
+  SVD_compromise = svd(W_weighted)
   M2 = diag(1/sqrt(diag(M)))
   A2 = diag(1/sqrt(diag(A)))
-  P = M2%*%GSVD$u
-  Q = A2%*%GSVD$v
-  d = GSVD$d
+  P = M2%*%SVD_compromise$u
+  Q = A2%*%SVD_compromise$v
+  d = SVD_compromise$d
   eigenvalues = d^2
   cfs = P%*%diag(d)
   pfs = partial_factor_score(tables, sets, a, Q, ncomps)
