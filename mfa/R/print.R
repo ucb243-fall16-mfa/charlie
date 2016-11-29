@@ -2,7 +2,7 @@
 setMethod(
   "print",
   signature = "mfa",
-  function(x,data,compromise = TRUE,pfs.loadings = TRUE){
+  function(x,data,compromise = TRUE,pfs = TRUE, loadings = TRUE, tablenumber = 1){
     cat("Number of objects: ")
     print(nrow(x@cfs))
     cat("Number of tables: ")
@@ -12,8 +12,11 @@ setMethod(
     if(compromise == TRUE){
       compromise_plot(x,data)
     }
-    if(pfs.loadings == TRUE){
-      pfs.loadings_plot(x,data)
+    if(pfs == TRUE){
+      pfs_plot(x,data,tablenumber)
+    }
+    if(loadings == TRUE){
+      loadings_plot(x,data,tablenumber)
     }
   }
 )
@@ -42,15 +45,14 @@ setMethod(
 
 
 setGeneric(
-  "pfs.loadings_plot",
-  function(x,data) standardGeneric("pfs.loadings_plot")
+  "pfs_plot",
+  function(x,data,tablenumber) standardGeneric("pfs_plot")
 )
 setMethod(
-  "pfs.loadings_plot",
+  "pfs_plot",
   signature = "mfa",
-  function(x,data){
-    i = 1
-    while(i <= length(x@pfs)){
+  function(x,data,tablenumber){
+    i = tablenumber
       # simple scatter-plot
       plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
            xlab = "first component", ylab = "second component")
@@ -59,16 +61,33 @@ setMethod(
       # plot text for pfs
       text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(data),
            pos = 4, col = "gray50")
-      # plot points for loadings
-      points(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2], pch = 17, col = "red")
-      # plot text for loadings
-      text(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],labels = colnames(data[x@sets[[i]]]),
-           pos = 4, col = "black")
       # graphic title
-      title(paste("Partial Factor Scores and variable loadings for table",i))
-      i = i + 1
-    }
+      title(paste("Partial Factor Scores for table",i))
 
   }
 )
 
+setGeneric(
+  "loadings_plot",
+  function(x,data,tablenumber) standardGeneric("loadings_plot")
+)
+
+setMethod(
+  "loadings_plot",
+  signature = "mfa",
+  function(x,data,tablenumber){
+    i = tablenumber
+    # simple scatter-plot
+    plot(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],type = "n",
+         xlab = "first component", ylab = "second component")
+    # plot points for loadings
+    points(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2], pch = 17, col = "red")
+    # plot text for loadings
+    text(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],labels = colnames(data[x@sets[[i]]]),
+         pos = 4, col = "black")
+    # graphic title
+    title(paste("Variable Loadings for table",i))
+  }
+)
+
+print(m,data,pfs = TRUE,tablenumber = 7)
