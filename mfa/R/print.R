@@ -2,7 +2,7 @@
 setMethod(
   "print",
   signature = "mfa",
-  function(x,data,compromise = TRUE,pfs = TRUE){
+  function(x,data,compromise = TRUE,pfs.loadings = TRUE){
     cat("Number of objects: ")
     print(nrow(x@cfs))
     cat("Number of tables: ")
@@ -12,8 +12,8 @@ setMethod(
     if(compromise == TRUE){
       compromise_plot(x,data)
     }
-    if(pfs == TRUE){
-      pfs_table(x,data)
+    if(pfs.loadings == TRUE){
+      pfs.loadings_plot(x,data)
     }
   }
 )
@@ -42,21 +42,32 @@ setMethod(
 
 
 setGeneric(
-  "pfs_table",
-  function(x,data) standardGeneric("pfs_table")
+  "pfs.loadings_plot",
+  function(x,data) standardGeneric("pfs.loadings_plot")
 )
 setMethod(
-  "pfs_table",
+  "pfs.loadings_plot",
   signature = "mfa",
   function(x,data){
-   m <- x@pfs[[1]]
-   i = 2
-   while(i<=length(x@pfs)){
-     m <- cbind(m,x@pfs[[i]])
-     i = i + 1
-   }
-   return(m)
+    i = 1
+    while(i <= length(x@pfs)){
+      # simple scatter-plot
+      plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
+           xlab = "first component", ylab = "second component")
+      # plot points for pfs
+      points(x@pfs[[i]][,1],x@pfs[[i]][,2], pch = 19, col = "blue")
+      # plot text for pfs
+      text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(data),
+           pos = 4, col = "gray50")
+      # plot points for loadings
+      points(x@loadings[x@sets[[1]],][,1], x@loadings[x@sets[[1]],][,2], pch = 17, col = "red")
+      # plot text for loadings
+      text(x@loadings[x@sets[[1]],][,1], x@loadings[x@sets[[1]],][,2],labels = colnames(data[x@sets[[i]]]),
+           pos = 4, col = "black")
+      # graphic title
+      title(paste("Partial Factor Scores of table",i))
+      i = i + 1
+    }
+
   }
 )
-
-print(m,data)
