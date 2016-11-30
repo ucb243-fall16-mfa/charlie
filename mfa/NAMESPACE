@@ -2,8 +2,11 @@
 
 export(RV)
 export(RV_table)
+export(compromise_plot)
 export(ctr_observations)
 export(ctr_tables)
 export(ctr_variables)
 export(mfa)
+export(pfs_table)
+exportMethods(print)
 importFrom(methods,new)
