@@ -68,8 +68,10 @@ setMethod(
 #' pfs_table
 #' @include classes.R
 #' @param object a `mfa` object
+#' @param tablenumber The number of the table to display partial 
+#'        factor scores for.
 #' 
-#' @return A plot of the compromises
+#' @return A plot of the partial factor scores for a table.
 #' @rdname pfs_table
 #' @export
 
@@ -96,6 +98,18 @@ setMethod(
   }
 )
 
+#' loadings_plot
+#'
+#' loadings_plot
+#' @include classes.R
+#' @param object a `mfa` object
+#' @param tablenumber the table in the dataset that you wish to display 
+#'        loadings for
+#' 
+#' @return A plot of the variable loadings
+#' @rdname loadings_plot
+#' @export
+
 setGeneric(
   "loadings_plot",
   function(x,tablenumber) standardGeneric("loadings_plot")
@@ -118,5 +132,3 @@ setMethod(
     title(paste("Variable Loadings for table",i))
   }
 )
-
-#print(m,data,pfs = TRUE,tablenumber = 7)
