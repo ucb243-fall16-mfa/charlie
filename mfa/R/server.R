@@ -16,15 +16,16 @@ shinyServer(function(input, output) {
 
 #a scatterplot of the common factor scores
     if (input$var == "Common factor scores")
-    {compromise_plot(obj,data)}
+    {compromise_plot(obj)}
 
 #a scatterplot of the partial factors scores
     if (input$var == "Partial factors scores")
-    {pfs_plot(obj,data,as.numeric(input$guy))}
+    {pfs_plot(obj,as.numeric(input$guy))}
 
 #a scatterplot of theloadings
     if (input$var == "Loadings")
-      {loadings_plot(obj,data,as.numeric(input$guy))}
+      {loadings_plot(obj,as.numeric(input$guy))}
   })
 
 })
+
