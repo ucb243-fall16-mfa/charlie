@@ -1,4 +1,4 @@
-estthat::context("multiple factor analysis print function")
+testthat::context("multiple factor analysis print function")
 
 data = read.csv("wines.csv")
 data = data[,2:54]
