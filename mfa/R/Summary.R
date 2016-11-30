@@ -10,13 +10,14 @@
 #' C2: cumulative sums of the percentage of inertia
 #' sum: matrix of Eigenvalues and Percentage of Explained Inertia of the MFA
 #' @return a table
-#'
+#' @rdname sumeigen
+#' @export
 sumeigen <- function(Mfa){
   s = Mfa@singularValue
   e = Mfa@eigenvalues
   n = length(s)
   c1 = cumsum(e)
-  i = round(e/c1[n]*100)
+  i = round(e/Mfa@sumEigenValues*100)
   c2 = cumsum(i)
   sum <- rbind(s, e, c1, i, c2)
   colnames(sum) <- 1:n
