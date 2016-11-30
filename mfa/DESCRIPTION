@@ -21,7 +21,8 @@ Collate:
     'ui.R'
 RoxygenNote: 5.0.1
 Imports:
-    methods
+    methods,
+    graphics
 Suggests:
     testthat,
     knitr,

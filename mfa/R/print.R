@@ -2,9 +2,16 @@
 #'
 #' print
 #' @include classes.R
-#' @param object a `mfa` object
+#' @param x a `mfa` object
+#' @param compromise boolean; output a plot of the first two components of compromise factor score if TRUE
+#' @param pfs boolean; output a plot of the first two components of partial factor score for table with specified `tablenumber`if TRUE
+#' @param loadings boolean; output a plot of the first two components of loadings for table with specified `tablenumber` if TRUE
+#' @param tablenumber table number, used for partial factor score or loadings plot
 #' 
-#' @return A visualization table
+#' @return A visualization table; also plots if any of parameters `compromise`, `pfs`,
+#' `loadings` are set to be TRUE
+#' 
+#' @importFrom graphics plot points text title
 #' @rdname print
 #' @export
 
@@ -34,7 +41,7 @@ setMethod(
 #'
 #' compromise_plot
 #' @include classes.R
-#' @param object a `mfa` object
+#' @param x a `mfa` object
 #' 
 #' @return A plot of the compromises
 #' @rdname compromise_plot
@@ -67,18 +74,20 @@ setMethod(
 #'
 #' pfs_plot
 #' @include classes.R
-#' @param object a `mfa` object
+#' @param x a `mfa` object
 #' @param tablenumber The number of the table to display partial 
 #'        factor scores for.
 #' 
 #' @return A plot of the partial factor scores for a table.
-#' @rdname pfs_table
+#' @rdname pfs_plot
 #' @export
 
 setGeneric(
   "pfs_plot",
   function(x,tablenumber) standardGeneric("pfs_plot")
 )
+
+#' @describeIn pfs_plot plot of the partial factor scores for a table
 setMethod(
   "pfs_plot",
   signature = "mfa",
@@ -102,7 +111,7 @@ setMethod(
 #'
 #' loadings_plot
 #' @include classes.R
-#' @param object a `mfa` object
+#' @param x a `mfa` object
 #' @param tablenumber the table in the dataset that you wish to display 
 #'        loadings for
 #' 
@@ -114,7 +123,7 @@ setGeneric(
   "loadings_plot",
   function(x,tablenumber) standardGeneric("loadings_plot")
 )
-
+#' @describeIn loadings_plot a plot of the variable loadings
 setMethod(
   "loadings_plot",
   signature = "mfa",
