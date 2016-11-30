@@ -56,16 +56,16 @@ setMethod(
     # plot points
     points(x@cfs[,1],x@cfs[,2], pch = 19, col = "blue")
     # plot text
-    text(x@cfs[,1],x@cfs[,2],
+    text(x@cfs[,1],x@cfs[,2], labels = rownames(x@data),
          pos = 4, col = "gray50")
     # graphic title
     title("Compromise of tables")
   }
 )
 
-#' pfs_table
+#' pfs_plot
 #'
-#' pfs_table
+#' pfs_plot
 #' @include classes.R
 #' @param object a `mfa` object
 #' @param tablenumber The number of the table to display partial 
@@ -84,17 +84,17 @@ setMethod(
   signature = "mfa",
   function(x,tablenumber){
     i = tablenumber
-      # simple scatter-plot
-      plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
-           xlab = "first component", ylab = "second component")
-      # plot points for pfs
-      points(x@pfs[[i]][,1],x@pfs[[i]][,2], pch = 19, col = "blue")
-      # plot text for pfs
-      text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(x@data),
-           pos = 4, col = "gray50")
-      # graphic title
-      title(paste("Partial Factor Scores for table",i))
-
+    # simple scatter-plot
+    plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
+         xlab = "first component", ylab = "second component")
+    # plot points for pfs
+    points(x@pfs[[i]][,1],x@pfs[[i]][,2], pch = 19, col = "blue")
+    # plot text for pfs
+    text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(x@data),
+         pos = 4, col = "gray50")
+    # graphic title
+    title(paste("Partial Factor Scores for table",i))
+    
   }
 )
 
