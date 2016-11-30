@@ -2,6 +2,7 @@
 
 setClass("mfa",
     slots = list(
+      data = "data.frame",
       ncomps = "numeric",
       sets = "list",
       center = "logical",

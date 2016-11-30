@@ -11,7 +11,7 @@
 setMethod(
   "print",
   signature = "mfa",
-  function(x,compromise = TRUE,pfs = TRUE){
+  function(x, compromise = TRUE,pfs = TRUE, loadings = TRUE, tablenumber = 1){
     cat("Number of objects: ")
     print(nrow(x@cfs))
     cat("Number of tables: ")
@@ -22,7 +22,10 @@ setMethod(
       compromise_plot(x)
     }
     if(pfs == TRUE){
-      pfs_table(x)
+      pfs_plot(x, tablenumber)
+    }
+    if(loadings == TRUE){
+      loadings_plot(x, tablenumber)
     }
   }
 )
@@ -71,20 +74,49 @@ setMethod(
 #' @export
 
 setGeneric(
-  "pfs_table",
-  function(x) standardGeneric("pfs_table")
+  "pfs_plot",
+  function(x,tablenumber) standardGeneric("pfs_plot")
 )
 setMethod(
-  "pfs_table",
+  "pfs_plot",
   signature = "mfa",
-  function(x){
-   m <- x@pfs[[1]]
-   i = 2
-   while(i<=length(x@pfs)){
-     m <- cbind(m,x@pfs[[i]])
-     i = i + 1
-   }
-   return(m)
+  function(x,tablenumber){
+    i = tablenumber
+      # simple scatter-plot
+      plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
+           xlab = "first component", ylab = "second component")
+      # plot points for pfs
+      points(x@pfs[[i]][,1],x@pfs[[i]][,2], pch = 19, col = "blue")
+      # plot text for pfs
+      text(x@pfs[[i]][,1],x@pfs[[i]][,2], labels = rownames(x@data),
+           pos = 4, col = "gray50")
+      # graphic title
+      title(paste("Partial Factor Scores for table",i))
+
   }
 )
 
+setGeneric(
+  "loadings_plot",
+  function(x,tablenumber) standardGeneric("loadings_plot")
+)
+
+setMethod(
+  "loadings_plot",
+  signature = "mfa",
+  function(x,tablenumber){
+    i = tablenumber
+    # simple scatter-plot
+    plot(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],type = "n",
+         xlab = "first component", ylab = "second component")
+    # plot points for loadings
+    points(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2], pch = 17, col = "red")
+    # plot text for loadings
+    text(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],labels = colnames(x@data[x@sets[[i]]]),
+         pos = 4, col = "black")
+    # graphic title
+    title(paste("Variable Loadings for table",i))
+  }
+)
+
+#print(m,data,pfs = TRUE,tablenumber = 7)

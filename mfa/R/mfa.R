@@ -28,7 +28,7 @@ mfa = function(data, sets, ncomps = NULL, center = TRUE, scale = TRUE){
   sets = convert_sets(data, sets)
   data1 = preprocess(data,center,scale)
   res = compromise_stats(data1,sets,ncomps)
-  create_mfa(res, sets, center, scale, ncomps)
+  create_mfa(res, sets, center, scale, ncomps, data)
 }
 
 # helper functions for mfa
@@ -104,10 +104,11 @@ compromise_stats = function(data, sets, ncomps){
   return(list(d=d,eigenvalues=eigenvalues,cfs=cfs,pfs=pfs,Q=Q,A=A))
 }
 
-create_mfa = function(res, sets, center, scale, ncomps){
+create_mfa = function(res, sets, center, scale, ncomps, data){
   # create mfa class object
   if (is.null(ncomps)){
     new(Class = "mfa",
+        data = data, # include the original dataset for method use
         ncomps = length(res$eigenvalues),
         sets = sets,
         center = center,
@@ -120,6 +121,7 @@ create_mfa = function(res, sets, center, scale, ncomps){
         a_weights = diag(res$A))
   }else{
     new(Class = "mfa",
+        data = data, # include the original dataset for method use
         ncomps = ncomps,
         sets = sets,
         center = center,

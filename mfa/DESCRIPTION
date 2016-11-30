@@ -12,12 +12,13 @@ Collate:
     'RV_table.R'
     'Summary.R'
     'classes.R'
-    'compromise_plot.R'
     'ctr_observations.R'
     'ctr_variables.R'
     'ctr_tables.R'
     'mfa.R'
     'print.R'
+    'server.R'
+    'ui.R'
 RoxygenNote: 5.0.1
 Imports:
     methods
