@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Stat 243" />
+
+<meta name="date" content="2016-11-24" />
+
+<title>Using the MFA package - Contributions</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using the MFA package - Contributions</h1>
+<h4 class="author"><em>Stat 243</em></h4>
+<h4 class="date"><em>11/24/2016</em></h4>
+
+
+
+<div id="contributions---what-are-they" class="section level2">
+<h2>Contributions - What are they?</h2>
+<p>In MFA, there are several types of “contribution” statistics. Given that MFA, as described in the <a href="mfa_intro.html">intro document</a> gives you compromise factors that explain your data, it is useful to look at the contribution of those factors to and from various sources. All contributions are statistics between 0 and 1, where the contribution of all {variables, tables, observations} sums to 1. The more important a {variable, table, observation} is to a factor, the larger its value will be.</p>
+<div id="setup" class="section level3">
+<h3>Setup</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv&quot;</span>)
+<span class="co"># The first column is just wine IDs, and the last few columns are supplementary physical data.</span>
+<span class="co"># Columns 2-54 are the actual sets of ratings.</span>
+analysis_data =<span class="st"> </span>data[,<span class="dv">2</span>:<span class="dv">54</span>]
+variable_tables =<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>:<span class="dv">6</span>,<span class="dv">7</span>:<span class="dv">12</span>,<span class="dv">13</span>:<span class="dv">18</span>,<span class="dv">19</span>:<span class="dv">23</span>,<span class="dv">24</span>:<span class="dv">29</span>,<span class="dv">30</span>:<span class="dv">34</span>,<span class="dv">35</span>:<span class="dv">38</span>,<span class="dv">39</span>:<span class="dv">44</span>,<span class="dv">45</span>:<span class="dv">49</span>,<span class="dv">50</span>:<span class="dv">53</span>)
+<span class="kw">library</span>(mfa)
+<span class="co"># We pass the data, the table specification, the number of components, and arguments to the `scale`</span>
+<span class="co"># function in order to z-score the data.</span>
+analysis_result =<span class="st"> </span><span class="kw">mfa</span>(analysis_data, variable_tables, <span class="dt">ncomps =</span> <span class="dv">2</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="contribution-of-an-observation-to-a-dimension" class="section level3">
+<h3>Contribution of an observation to a dimension</h3>
+<p>The contribution of an observation to a dimension tries to reveal how much a particular observation in your dataset influenced the direction of a particular factor. (We often refer to our latent compromise factors as “dimensions”, as they describe the dimensions of a space that we can embed our observations in.)</p>
+<p>MFA produces a matrix of factor scores, <span class="math inline">\(F\)</span>, with rows equal to the number of observations and columns equal to the number of factors. This matrix is essentially the projection of the observations into the factorspace. We can find the contribution of an observation to a dimension with <span class="math display">\[
+\text{ctr}_{i,l} = \frac{m_i f_{i,l}^{2}}{\lambda_l}
+\]</span> where <span class="math inline">\(\lambda_l\)</span> is the eigenvalue for the <span class="math inline">\(l\)</span>th factor, and and <span class="math inline">\(m_i\)</span> is the mass of dataset <span class="math inline">\(i\)</span>. (Mass is an additional per-observation weighting assigned by the analyst.)</p>
+</div>
+<div id="getting-the-contribution-of-an-observation" class="section level3">
+<h3>Getting the contribution of an observation</h3>
+<p>Simply use the returned analysis object along with the <code>ctr_observations</code> method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ctr_observations</span>(analysis_result)</code></pre></div>
+<pre><code>##               [,1]        [,2]
+##  [1,] 0.1039486000 0.018067938
+##  [2,] 0.0707842116 0.000721502
+##  [3,] 0.0626556339 0.139844827
+##  [4,] 0.1344996531 0.018649686
+##  [5,] 0.2038784809 0.011174582
+##  [6,] 0.1728577563 0.007927234
+##  [7,] 0.0706823155 0.028397259
+##  [8,] 0.0926379624 0.112711812
+##  [9,] 0.0484146088 0.092067334
+## [10,] 0.0005790799 0.388253590
+## [11,] 0.0245243020 0.178244477
+## [12,] 0.0145373955 0.003939760</code></pre>
+<p>Notice how observation 10 contributes considerably more than any other observation to factor 2. This shows that 10 is well aligned with this factor. ### Contribution of a variable to a dimension The contribution of a variable to a dimension reveals how much a particular variable in the original dataset influenced the factors. This is found simply by weighting the loadings by the table weights: <span class="math display">\[
+\text{ctr}_{j, l} = a_j q^2_{j, l}
+\]</span> where <span class="math inline">\(a_j\)</span> is the weight of a particular set of observations, and <span class="math inline">\(q_{j, l} \in Q\)</span>, where <span class="math inline">\(Q\)</span> is the right singular matrix of the SVD of the re-weighted dataset.</p>
+</div>
+<div id="getting-the-contribution-of-a-variable" class="section level3">
+<h3>Getting the contribution of a variable</h3>
+<p>Simply use the returned analysis object along with the <code>ctr_variables</code> method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ctr_variables</span>(analysis_result)</code></pre></div>
+<pre><code>##              [,1]         [,2]
+##  [1,] 0.020885090 0.0244127525
+##  [2,] 0.017122101 0.0148423670
+##  [3,] 0.016287021 0.0377705750
+##  [4,] 0.014010101 0.0081261629
+##  [5,] 0.019756090 0.0062486776
+##  [6,] 0.013072286 0.0040016292
+##  [7,] 0.021079519 0.0080134103
+##  [8,] 0.020939521 0.0075537268
+##  [9,] 0.017040115 0.0095515864
+## [10,] 0.015655787 0.0137863619
+## [11,] 0.013560667 0.0030622126
+## [12,] 0.011782231 0.0265269278
+## [13,] 0.025524942 0.0150179325
+## [14,] 0.005068117 0.0142660195
+## [15,] 0.018365896 0.0394752290
+## [16,] 0.011364582 0.0366475665
+## [17,] 0.021123891 0.0242895797
+## [18,] 0.019603689 0.0219940534
+## [19,] 0.026790671 0.0018387181
+## [20,] 0.018532210 0.0339969057
+## [21,] 0.025091414 0.0078068236
+## [22,] 0.014490456 0.0011734365
+## [23,] 0.011512654 0.0037654958
+## [24,] 0.026854877 0.0123396905
+## [25,] 0.013853603 0.0189701913
+## [26,] 0.022096088 0.0204039131
+## [27,] 0.004676222 0.0053026532
+## [28,] 0.020491117 0.0063688638
+## [29,] 0.009550818 0.0001130784
+## [30,] 0.027565988 0.0139754014
+## [31,] 0.023281793 0.0227699166
+## [32,] 0.021198041 0.0324511882
+## [33,] 0.016067858 0.0002814756
+## [34,] 0.012655924 0.0349714120
+## [35,] 0.031493009 0.0600888967
+## [36,] 0.025284619 0.0699727397
+## [37,] 0.031880875 0.0351069808
+## [38,] 0.013535705 0.0589274552
+## [39,] 0.020732071 0.0260526390
+## [40,] 0.016639111 0.0385486198
+## [41,] 0.015092809 0.0145855892
+## [42,] 0.005220090 0.0130133535
+## [43,] 0.022299225 0.0185071285
+## [44,] 0.015575938 0.0233935549
+## [45,] 0.024268879 0.0153339732
+## [46,] 0.014499905 0.0128868726
+## [47,] 0.021709664 0.0134312018
+## [48,] 0.016545543 0.0018325871
+## [49,] 0.023115940 0.0093334395
+## [50,] 0.032113559 0.0019888297
+## [51,] 0.023179258 0.0211923560
+## [52,] 0.025270059 0.0107862080
+## [53,] 0.024592358 0.0229016404</code></pre>
+</div>
+<div id="contribution-of-a-table-to-a-dimension" class="section level3">
+<h3>Contribution of a table to a dimension</h3>
+<p>The contribution of a table to a dimension captures how much a particular set of variables contributed to the factor. <span class="math display">\[
+\text{ctr}_{k,l} = \sum^{J_k}_{j}\text{ctr}_{j,l}
+\]</span> where <span class="math inline">\(J_k\)</span> is the number of variables in table <span class="math inline">\(k\)</span>.</p>
+</div>
+<div id="getting-the-contribution-of-a-table" class="section level3">
+<h3>Getting the contribution of a table</h3>
+<p>Simply use the returned analysis object along with the <code>ctr_tables</code> method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ctr_tables</span>(analysis_result)</code></pre></div>
+<pre><code>##             [,1]       [,2]
+##  [1,] 0.10113269 0.09540216
+##  [2,] 0.10005784 0.06849423
+##  [3,] 0.10105112 0.15169038
+##  [4,] 0.09641740 0.04858138
+##  [5,] 0.09752272 0.06349839
+##  [6,] 0.10076960 0.10444939
+##  [7,] 0.10219421 0.22409607
+##  [8,] 0.09555924 0.13410088
+##  [9,] 0.10013993 0.05281807
+## [10,] 0.10515523 0.05686903</code></pre>
+<p>Notice how the contributions to factor 1 are almost the same from every table. This is by design. The entire point of MFA is to avoid one table from dominating the analysis.</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

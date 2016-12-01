@@ -1,0 +1,68 @@
+---
+title: "Using the MFA package - Contributions"
+author: "Stat 243"
+date: "11/24/2016"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exploring Contributions}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Contributions - What are they?
+In MFA, there are several types of "contribution" statistics. Given that MFA, as described in the [intro document](mfa_intro.html) gives you compromise factors that explain your data, it is useful to look at the contribution of those factors to and from various sources. All contributions are statistics between 0 and 1, where the contribution of all {variables, tables, observations} sums to 1. The more important a {variable, table, observation} is to a factor, the larger its value will be.
+
+### Setup
+```{r}
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+# The first column is just wine IDs, and the last few columns are supplementary physical data.
+# Columns 2-54 are the actual sets of ratings.
+analysis_data = data[,2:54]
+variable_tables = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+library(mfa)
+# We pass the data, the table specification, the number of components, and arguments to the `scale`
+# function in order to z-score the data.
+analysis_result = mfa(analysis_data, variable_tables, ncomps = 2, center = TRUE, scale = TRUE)
+```
+
+### Contribution of an observation to a dimension
+The contribution of an observation to a dimension tries to reveal how much a particular observation in your dataset influenced the direction of a particular factor. (We often refer to our latent compromise factors as "dimensions", as they describe the dimensions of a space that we can embed our observations in.)
+
+MFA produces a matrix of factor scores, $F$, with rows equal to the number of observations and columns equal to the number of factors. This matrix is essentially the projection of the observations into the factorspace. We can find the contribution of an observation to a dimension with
+$$
+\text{ctr}_{i,l} = \frac{m_i f_{i,l}^{2}}{\lambda_l}
+$$
+where $\lambda_l$ is the eigenvalue for the $l$th factor, and and $m_i$ is the mass of dataset $i$. (Mass is an additional per-observation weighting assigned by the analyst.)
+
+### Getting the contribution of an observation
+Simply use the returned analysis object along with the `ctr_observations` method.
+```{r}
+ctr_observations(analysis_result)
+```
+Notice how observation 10 contributes considerably more than any other observation to factor 2. This shows that 10 is well aligned with this factor.
+### Contribution of a variable to a dimension
+The contribution of a variable to a dimension reveals how much a particular variable in the original dataset influenced the factors. This is found simply by weighting the loadings by the table weights:
+$$
+\text{ctr}_{j, l} = a_j q^2_{j, l}
+$$
+where $a_j$ is the weight of a particular set of observations, and $q_{j, l} \in Q$, where $Q$ is the right singular matrix of the SVD of the re-weighted dataset.
+
+### Getting the contribution of a variable
+Simply use the returned analysis object along with the `ctr_variables` method.
+```{r}
+ctr_variables(analysis_result)
+```
+
+### Contribution of a table to a dimension
+The contribution of a table to a dimension captures how much a particular set of variables contributed to the factor.
+$$
+\text{ctr}_{k,l} = \sum^{J_k}_{j}\text{ctr}_{j,l}
+$$
+where $J_k$ is the number of variables in table $k$.
+
+### Getting the contribution of a table
+Simply use the returned analysis object along with the `ctr_tables` method.
+```{r}
+ctr_tables(analysis_result)
+```
+Notice how the contributions to factor 1 are almost the same from every table. This is by design. The entire point of MFA is to avoid one table from dominating the analysis.

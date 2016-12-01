@@ -1,0 +1,64 @@
+---
+title: "Using the MFA package"
+author: "Stat 243"
+date: "11/24/2016"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the MFA package}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+## Package Installation
+```{r install,echo=FALSE}
+#devtools::install_git("https://github.com/cmcneil/project-243","mfa")
+```
+## Explanation - MFA
+Multi-factor analysis is a technique for finding latent factors that can explain variability in an observed dataset. It can be thought of as a generalized version of Principal Component Analysis (PCA) over heterogenous sets (or "blocks") of dimensions in your observations. MFA finds latent "factors" that explain variability of observed data, and then looks at the contributions of these factors to each observed point, as well as the loading of the original set of variables to the factors. There are many additional statistics that can be looked at, such as the contribution of a table to the factors, the partial factor scores of each table, and the projection of those partial factor scores into the compromise space.
+
+### Why use MFA?
+MFA is useful when you have heterogenous sets of variables for a single observation, and you want to weight each block equally in your analysis. It becomes much clearer why MFA is useful if we look at how *PCA* can fail in this case!
+
+A classic example situation is if you have ratings from multiple different raters for each observation, where each rater is allowed to define their own rating system. Imagine that you just used simple PCA to analyze the resultant dataset. Then, if one rater made a much higher dimensional rating system than the other raters, their feedback would create much more variance in the observed data than the other raters! The resulting principle components would be largely determined by this single rater. MFA essentially normalizes *blocks* of variables (one block per rater, in the example), so that each block is equally important. The  "compromise factor scores" yielded by the analysis are analogous to principle components, in that they are orthogonal linear combinations of the original variables that attempt to explain variance in the observed data (and are ordered as such). The difference is that they attempt to explain variance where each block's contribution is weighted equally.
+
+## Algorithm
+For an in-depth mathematical discussion, see wikipedia or [Abdi et al, 2013](https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf). At its core, simply compute the PCA of each z-scored table individually:
+$$
+\Sigma_k = X_k X_{k}^{\intercal} \\
+eig(\Sigma_k) = V_k \Delta_k V_{k}^{\intercal} \\
+\text{diag}(\Delta_k) = \lambda_{k,1}, \lambda_{k, 2}, \dots \lambda_{k, i} \dots
+$$
+And then normalize each table by it's first PC:
+$$
+X^{'}_k = \frac{X_k}{\lambda_{k, 1}}
+$$
+And finally, compute the PCA of the combined table X^'. The new principle components are "factors" or "compromises". 
+Note that in the `mfa` package, we use the SVD formulations of PCA instead of eigen decomposition, to achieve greater numerical stability. We also use SVD because the the right singular matrix contains information about the loadings of variables on factors. This is useful in interpretation of results.
+
+## Example Use - Wines dataset
+To demonstrate an example of how to use the package, we will use the wines dataset. This dataset consists of ratings for 12 different wines from 10 different wine critics. The critics were forced to rate the wines according to several standardized rating scales, as well as add their own ratings according to whatever rating system they wished. See [Abdi et al, 2013](https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf)
+
+We can get the dataset as follows:
+```{r}
+# Download the dataset
+data(wines)
+# The first column is just wine IDs, and the last few columns are supplementary physical data.
+# Columns 2-54 are the actual sets of ratings.
+analysis_data = wines[,2:54]
+```
+The `mfa` class requires a `sets` argument, specifying which columns belong to each table respectively. `sets` is a list of vectors specifying the column indices. The following `sets` argument shows the columns for each table.
+```{r}
+variable_tables = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+```
+
+To use, the package, simply instantiate an `mfa` object, which will do the computations necessary for the core analysis, and then access the various results of the analysis using the object's methods and slots. See all results you can query with `help(mfa)`:
+```{r}
+library(mfa)
+# We pass the data, the table specification, the number of components, and arguments to the `scale`
+# function in order to z-score the data.
+analysis_result = mfa(analysis_data, variable_tables, ncomps = 2, center = TRUE, scale = TRUE)
+# Now we can examine the results of the analysis, for example, the dataset in terms
+# of the compromise factor scores:
+analysis_result@cfs
+```
+
+We further examine the features of the `mfa` package in other documents on [display functionality](display.html) and [contributions](exploring_contributions.html).

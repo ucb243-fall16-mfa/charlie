@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Stat 243" />
+
+<meta name="date" content="2016-11-24" />
+
+<title>Using the MFA package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using the MFA package</h1>
+<h4 class="author"><em>Stat 243</em></h4>
+<h4 class="date"><em>11/24/2016</em></h4>
+
+
+
+<div id="package-installation" class="section level2">
+<h2>Package Installation</h2>
+</div>
+<div id="explanation---mfa" class="section level2">
+<h2>Explanation - MFA</h2>
+<p>Multi-factor analysis is a technique for finding latent factors that can explain variability in an observed dataset. It can be thought of as a generalized version of Principal Component Analysis (PCA) over heterogenous sets (or “blocks”) of dimensions in your observations. MFA finds latent “factors” that explain variability of observed data, and then looks at the contributions of these factors to each observed point, as well as the loading of the original set of variables to the factors. There are many additional statistics that can be looked at, such as the contribution of a table to the factors, the partial factor scores of each table, and the projection of those partial factor scores into the compromise space.</p>
+<div id="why-use-mfa" class="section level3">
+<h3>Why use MFA?</h3>
+<p>MFA is useful when you have heterogenous sets of variables for a single observation, and you want to weight each block equally in your analysis. It becomes much clearer why MFA is useful if we look at how <em>PCA</em> can fail in this case!</p>
+<p>A classic example situation is if you have ratings from multiple different raters for each observation, where each rater is allowed to define their own rating system. Imagine that you just used simple PCA to analyze the resultant dataset. Then, if one rater made a much higher dimensional rating system than the other raters, their feedback would create much more variance in the observed data than the other raters! The resulting principle components would be largely determined by this single rater. MFA essentially normalizes <em>blocks</em> of variables (one block per rater, in the example), so that each block is equally important. The “compromise factor scores” yielded by the analysis are analogous to principle components, in that they are orthogonal linear combinations of the original variables that attempt to explain variance in the observed data (and are ordered as such). The difference is that they attempt to explain variance where each block’s contribution is weighted equally.</p>
+</div>
+</div>
+<div id="algorithm" class="section level2">
+<h2>Algorithm</h2>
+<p>For an in-depth mathematical discussion, see wikipedia or <a href="https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf">Abdi et al, 2013</a>. At its core, simply compute the PCA of each z-scored table individually: <span class="math display">\[
+\Sigma_k = X_k X_{k}^{\intercal} \\
+eig(\Sigma_k) = V_k \Delta_k V_{k}^{\intercal} \\
+\text{diag}(\Delta_k) = \lambda_{k,1}, \lambda_{k, 2}, \dots \lambda_{k, i} \dots
+\]</span> And then normalize each table by it’s first PC: <span class="math display">\[
+X^{'}_k = \frac{X_k}{\lambda_{k, 1}}
+\]</span> And finally, compute the PCA of the combined table X^’. The new principle components are “factors” or “compromises”. Note that in the <code>mfa</code> package, we use the SVD formulations of PCA instead of eigen decomposition, to achieve greater numerical stability. We also use SVD because the the right singular matrix contains information about the loadings of variables on factors. This is useful in interpretation of results.</p>
+</div>
+<div id="example-use---wines-dataset" class="section level2">
+<h2>Example Use - Wines dataset</h2>
+<p>To demonstrate an example of how to use the package, we will use the wines dataset. This dataset consists of ratings for 12 different wines from 10 different wine critics. The critics were forced to rate the wines according to several standardized rating scales, as well as add their own ratings according to whatever rating system they wished. See <a href="https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf">Abdi et al, 2013</a></p>
+<p>We can get the dataset as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Download the dataset</span>
+<span class="kw">data</span>(wines)
+<span class="co"># The first column is just wine IDs, and the last few columns are supplementary physical data.</span>
+<span class="co"># Columns 2-54 are the actual sets of ratings.</span>
+analysis_data =<span class="st"> </span>wines[,<span class="dv">2</span>:<span class="dv">54</span>]</code></pre></div>
+<p>The <code>mfa</code> class requires a <code>sets</code> argument, specifying which columns belong to each table respectively. <code>sets</code> is a list of vectors specifying the column indices. The following <code>sets</code> argument shows the columns for each table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">variable_tables =<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>:<span class="dv">6</span>,<span class="dv">7</span>:<span class="dv">12</span>,<span class="dv">13</span>:<span class="dv">18</span>,<span class="dv">19</span>:<span class="dv">23</span>,<span class="dv">24</span>:<span class="dv">29</span>,<span class="dv">30</span>:<span class="dv">34</span>,<span class="dv">35</span>:<span class="dv">38</span>,<span class="dv">39</span>:<span class="dv">44</span>,<span class="dv">45</span>:<span class="dv">49</span>,<span class="dv">50</span>:<span class="dv">53</span>)</code></pre></div>
+<p>To use, the package, simply instantiate an <code>mfa</code> object, which will do the computations necessary for the core analysis, and then access the various results of the analysis using the object’s methods and slots. See all results you can query with <code>help(mfa)</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mfa)
+<span class="co"># We pass the data, the table specification, the number of components, and arguments to the `scale`</span>
+<span class="co"># function in order to z-score the data.</span>
+analysis_result =<span class="st"> </span><span class="kw">mfa</span>(analysis_data, variable_tables, <span class="dt">ncomps =</span> <span class="dv">2</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
+<span class="co"># Now we can examine the results of the analysis, for example, the dataset in terms</span>
+<span class="co"># of the compromise factor scores:</span>
+analysis_result@cfs</code></pre></div>
+<pre><code>##              [,1]        [,2]
+##  [1,] -0.98020575  0.16325474
+##  [2,] -0.80886515  0.03262348
+##  [3,] -0.76100584 -0.45418702
+##  [4,] -1.11498367 -0.16586214
+##  [5,]  1.37275684 -0.12838880
+##  [6,]  1.26401538 -0.10813651
+##  [7,]  0.80828274  0.20466790
+##  [8,]  0.92534231  0.40775212
+##  [9,] -0.66895382  0.36852275
+## [10,]  0.07316059 -0.75677932
+## [11,] -0.47610885  0.51276640
+## [12,]  0.36656519 -0.07623359</code></pre>
+<p>We further examine the features of the <code>mfa</code> package in other documents on <a href="display.html">display functionality</a> and <a href="exploring_contributions.html">contributions</a>.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
