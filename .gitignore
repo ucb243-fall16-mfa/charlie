@@ -3,5 +3,4 @@
 .RData
 .Ruserdata
 *.tar.gz
-*.Rd
 mfa/vignettes/*.html

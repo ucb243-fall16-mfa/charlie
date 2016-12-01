@@ -6,7 +6,10 @@
 #' @param table2 a data frame or matrix
 #' 
 #' @return RV coefficient
-#' 
+#' @examples
+#' t1 = matrix(rnorm(100),nrow=10)
+#' t2 = matrix(rnorm(100),nrow=10)
+#' RV(t1, t2)
 #' @export
 
 RV = function(table1, table2){

@@ -7,10 +7,9 @@ library(shiny)
 shinyServer(function(input, output) {
 
   output$distPlot <- renderPlot({
-    data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
-    data = data[,2:54]
+    wines = wines[,2:54]
     sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
-    obj = mfa(data = data, sets, center = TRUE, scale = TRUE)
+    obj = mfa(data = wines, sets, center = TRUE, scale = TRUE)
 #Eigenvalues bar-chart
     if (input$var == "Eigenvalues")
     {barplot( obj@eigenvalues, main = "Eigenvalues" )}

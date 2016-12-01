@@ -40,10 +40,10 @@ To demonstrate an example of how to use the package, we will use the wines datas
 We can get the dataset as follows:
 ```{r}
 # Download the dataset
-data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+data(wines)
 # The first column is just wine IDs, and the last few columns are supplementary physical data.
 # Columns 2-54 are the actual sets of ratings.
-analysis_data = data[,2:54]
+analysis_data = wines[,2:54]
 ```
 The `mfa` class requires a `sets` argument, specifying which columns belong to each table respectively. `sets` is a list of vectors specifying the column indices. The following `sets` argument shows the columns for each table.
 ```{r}

@@ -17,4 +17,9 @@ RV coefficient
 \description{
 To evaluate the similarities between two tables
 }
+\examples{
+t1 = matrix(rnorm(100),nrow=10)
+t2 = matrix(rnorm(100),nrow=10)
+RV(t1, t2)
+}
 
