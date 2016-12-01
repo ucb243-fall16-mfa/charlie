@@ -7,6 +7,7 @@ Maintainer: Anna Liu <liuanna626@gmail.com>
 Description: A package for multiple factor analysis.
 License: GPL-2 | GPL-3
 LazyData: TRUE
+Depends: R (>= 2.10)
 Collate:
     'RV.R'
     'RV_table.R'
@@ -15,13 +16,15 @@ Collate:
     'ctr_observations.R'
     'ctr_variables.R'
     'ctr_tables.R'
+    'data.R'
     'mfa.R'
     'print.R'
     'server.R'
     'ui.R'
 RoxygenNote: 5.0.1
 Imports:
-    methods
+    methods,
+    graphics
 Suggests:
     testthat,
     knitr,

@@ -17,4 +17,10 @@ a matrix
 \description{
 To evaluate the similarities between each pair of tables among all tables in the dataset
 }
+\examples{
+data(wines)
+wines = wines[,2:54]
+sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+RV_table(wines, sets)
+}
 
