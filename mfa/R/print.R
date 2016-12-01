@@ -12,11 +12,11 @@ setMethod(
   "print",
   signature = "mfa",
   function(x, compromise = TRUE,pfs = TRUE, loadings = TRUE, tablenumber = 1){
-    cat("Number of objects: ")
+    cat("Number of observations: ")
     print(nrow(x@cfs))
     cat("Number of tables: ")
     print(length(x@sets))
-    cat("Number of components: ")
+    cat("Number of factors: ")
     print(ifelse(is.null(x@ncomps),length(x@sets),x@ncomps))
     if(compromise == TRUE){
       compromise_plot(x)
@@ -59,7 +59,7 @@ setMethod(
     text(x@cfs[,1],x@cfs[,2],
          pos = 4, col = "gray50")
     # graphic title
-    title("Compromise of tables")
+    title("Observations projected onto the compromise")
   }
 )
 

@@ -31,8 +31,8 @@ And then normalize each table by it's first PC:
 $$
 X^{'}_k = \frac{X_k}{\lambda_{k, 1}}
 $$
-And finally, compute the PCA of the combined table X^'. The new principle components are factors. 
-Note that in the `mfa` package, we use the SVD formulations of PCA instead of eigen decomposition, to achieve greater numerical stability. We also use SVD, as the the right singular matrix contains information about the loadings of variables on factors. This is useful in interpretation of results.
+And finally, compute the PCA of the combined table X^'. The new principle components are "factors" or "compromises". 
+Note that in the `mfa` package, we use the SVD formulations of PCA instead of eigen decomposition, to achieve greater numerical stability. We also use SVD because the the right singular matrix contains information about the loadings of variables on factors. This is useful in interpretation of results.
 
 ## Example Use - Wines dataset
 To demonstrate an example of how to use the package, we will use the wines dataset. This dataset consists of ratings for 12 different wines from 10 different wine critics. The critics were forced to rate the wines according to several standardized rating scales, as well as add their own ratings according to whatever rating system they wished. See [Abdi et al, 2013](https://www.utdallas.edu/~herve/abdi-WiresCS-mfa-2013.pdf)
