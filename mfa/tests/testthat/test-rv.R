@@ -1,4 +1,4 @@
-testthat::context("rv coefficients for two tables and a large dataset")
+testthat::context("Test functions RV and RV_table")
 
 data(wines)
 wines = wines[,2:54]
