@@ -7,42 +7,152 @@ autosize: true
 Introducing Multi Factor Analysis
 ========================================================
 
-![alt text](presentation-figure/mfa_tables.png)
+![mfa tables](presentation-figure/mfa_tables.png)
 
-Introducing Multi Factor Analysis
+Review - Principal Components Analysis
+========================================================
+![pca](presentation-figure/pca.png)
+***
+$$
+\mathbf{\Sigma} = \mathbf{X} \mathbf{X}^{T} \\
+\text{eig}(\mathbf{\Sigma}) = \mathbf{W} \mathbf{\Delta} \mathbf{W}^{T} \\
+\text{diag}(\mathbf{\Delta}) = \lambda_{1}, \lambda_{2}, \dots \lambda_{i} \dots \\
+\mathbf{w}_1, \mathbf{w}_2, \mathbf{w}_3 \dots
+$$
+
+Review - Principal Components Analysis
+========================================================
+![pca](presentation-figure/pca.png)
+***
+$$
+\mathbf{\Sigma} = \mathbf{X} \mathbf{X}^{T} \\
+\text{eig}(\mathbf{\Sigma}) = \mathbf{W} \mathbf{\Delta} \mathbf{W}^{T} \\
+\text{diag}(\mathbf{\Delta}) = \lambda_{1}, \lambda_{2}, \dots \lambda_{i} \dots \\
+\mathbf{w}_1, \mathbf{w}_2, \mathbf{w}_3 \dots
+$$
+***
+$$
+\mathbf{X} =  \mathbf{U} \mathbf{\Gamma} \mathbf{V}^{T}\\
+\mathbf{X}\mathbf{X}^{T} =  \mathbf{U} \mathbf{\Gamma} \mathbf{V}^{T} (\mathbf{U} \mathbf{\Gamma} \mathbf{V}^{T})^T\\
+
+\mathbf{X}\mathbf{X}^{T} =  \mathbf{U} \mathbf{\Gamma} \mathbf{V}^{T} (\mathbf{V} \mathbf{\Gamma} \mathbf{U}^{T})\\
+\mathbf{X}\mathbf{X}^{T} =  \mathbf{U} \mathbf{\Gamma}^2 \mathbf{U}^{T}
+$$
+
+Where PCA Fails
 ========================================================
 
-![alt text](presentation-figure/mfa_tables.png)
+![mfa tables](presentation-figure/mfa_tables.png)
 
-Introducing Multi Factor Analysis
+
+Multifactor analysis
 ========================================================
 
-![alt text](presentation-figure/mfa_tables.png)
+$$
+\mathbf{X}_{[k]} =  \mathbf{U}_{[k]} \mathbf{\Gamma}_{[k]} \mathbf{V}_{[k]}^{T}\\
+\mathbf{X}_{[k]}\mathbf{X}_{[k]}^{T} =  \mathbf{U}_{[k]} \mathbf{\Gamma}_{[k]} \mathbf{V}_{[k]}^{T} (\mathbf{V}_{[k]} \mathbf{\Gamma}_{[k]} \mathbf{U}_{[k]}^{T})\\
+\mathbf{X}_{[k]}\mathbf{X}_{[k]}^{T} =  \mathbf{U}_{[k]} \mathbf{\Gamma}_{[k]}^2 \mathbf{U}_{[k]}^{T} \\
+\text{diag}(\mathbf{\Gamma}_{[k]}) = \gamma_{k,1}, \gamma_{k,2}, \gamma_{k,3},\dots \gamma_{k,i} \\
+\mathbf{\Delta} = \mathbf{\Gamma}^2
+$$
 
-Introducing Multi Factor Analysis
+***
+$$
+\mathbf{X'}_{[k]} = \frac{\mathbf{X}_{[k]}}{\gamma_{k,1}^2} \\
+\mathbf{X'} = \mathbf{P}\mathbf{\Delta}\mathbf{Q} \\
+\mathbf{F} =\mathbf{P}\mathbf{\Delta}
+$$
+
+MFA package
 ========================================================
-
-![alt text](presentation-figure/mfa_tables.png)
-
-Slide With Code
-========================================================
-
 
 ```r
-summary(cars)
+library(mfa)
 ```
 
-```
-     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  
-```
-
-Slide With Plot
+MFA package
 ========================================================
 
-![plot of chunk unnamed-chunk-2](presentation-figure/unnamed-chunk-2-1.png)
+```r
+library(mfa)
+
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+# The first column is just wine IDs, and the last few columns are supplementary physical data.
+# Columns 2-54 are the actual sets of ratings.
+analysis_data = data[,2:54]
+```
+
+MFA package
+========================================================
+
+```r
+library(mfa)
+
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+# The first column is just wine IDs, and the last few columns are supplementary physical data.
+# Columns 2-54 are the actual sets of ratings.
+analysis_data = data[,2:54]
+
+variable_tables = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+```
+
+MFA package
+========================================================
+
+```r
+library(mfa)
+
+data = read.csv("https://raw.githubusercontent.com/ucb-stat243/stat243-fall-2016/master/problem-sets/final-project/data/wines.csv")
+# The first column is just wine IDs, and the last few columns are supplementary physical data.
+# Columns 2-54 are the actual sets of ratings.
+analysis_data = data[,2:54]
+
+variable_tables = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
+
+analysis_result = mfa(analysis_data, variable_tables, ncomps = 2, center = TRUE, scale = TRUE)
+```
+
+MFA package
+========================================================
+
+```r
+sumeigen(analysis_result)
+```
+
+```
+                           1          2
+Singular value(δ)  0.8776418  0.3506073
+Eigenvalue(λ=δ^2)  0.7702551  0.1229254
+Cumulative         0.7702551  0.8931806
+%Inertia(τ)       61.0000000 10.0000000
+Cumulative        61.0000000 71.0000000
+```
+
+MFA package
+========================================================
+
+```r
+print(analysis_result, tablenumber=3)
+```
+
+```
+Number of observations: [1] 12
+Number of tables: [1] 10
+Number of factors: [1] 2
+```
+
+![plot of chunk unnamed-chunk-6](presentation-figure/unnamed-chunk-6-1.png)![plot of chunk unnamed-chunk-6](presentation-figure/unnamed-chunk-6-2.png)![plot of chunk unnamed-chunk-6](presentation-figure/unnamed-chunk-6-3.png)
+
+MFA - Shiny App
+========================================================
+
+```r
+library(shiny)
+setwd("path/to/package")
+runApp(".")
+```
+
+MFA - Shiny App
+========================================================
+![shiny app](presentation-figure/shiynshot.png)
+

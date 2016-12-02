@@ -61,4 +61,4 @@ analysis_result = mfa(analysis_data, variable_tables, ncomps = 2, center = TRUE,
 analysis_result@cfs
 ```
 
-We further examine the features of the `mfa` package in other documents on [plotting](), the [shiny app](), and [contributions]().
+We further examine the features of the `mfa` package in other documents on [display functionality](display.html) and [contributions](exploring_contributions.html).

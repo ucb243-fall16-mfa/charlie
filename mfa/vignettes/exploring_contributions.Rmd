@@ -4,7 +4,7 @@ author: "Stat 243"
 date: "11/24/2016"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using the MFA package}
+  %\VignetteIndexEntry{Exploring Contributions}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

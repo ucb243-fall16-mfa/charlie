@@ -24,7 +24,8 @@ Collate:
 RoxygenNote: 5.0.1
 Imports:
     methods,
-    graphics
+    graphics,
+    shiny
 Suggests:
     testthat,
     knitr,

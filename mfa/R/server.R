@@ -1,4 +1,4 @@
-#Shinny app(MFA)
+#Shiny app(MFA)
 #
 
 library(shiny)
@@ -28,3 +28,12 @@ shinyServer(function(input, output) {
   })
 
 })
+
+#' mfa_shiny
+#'
+#' mfa_shiny
+#' @rdname mfa_shiny
+#' @export
+mfa_shiny <- function() {
+  runApp(".")
+}
