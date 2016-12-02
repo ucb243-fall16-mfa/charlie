@@ -7,7 +7,8 @@ Maintainer: Anna Liu <liuanna626@gmail.com>
 Description: A package for multiple factor analysis.
 License: GPL-2 | GPL-3
 LazyData: TRUE
-Depends: R (>= 2.10)
+Depends:
+    R (>= 2.10)
 Collate:
     'RV.R'
     'RV_table.R'
@@ -19,6 +20,7 @@ Collate:
     'data.R'
     'mfa.R'
     'print.R'
+    'runExample.R'
     'server.R'
     'ui.R'
 RoxygenNote: 5.0.1
