@@ -10,7 +10,7 @@ vignette: >
 ---
 ## Package Installation
 ```{r install,echo=FALSE}
-#devtools::install_git("https://github.com/cmcneil/project-243","mfa")
+devtools::install_git("https://github.com/cmcneil/project-243","mfa")
 ```
 ## Explanation - MFA
 Multi-factor analysis is a technique for finding latent factors that can explain variability in an observed dataset. It can be thought of as a generalized version of Principal Component Analysis (PCA) over heterogenous sets (or "blocks") of dimensions in your observations. MFA finds latent "factors" that explain variability of observed data, and then looks at the contributions of these factors to each observed point, as well as the loading of the original set of variables to the factors. There are many additional statistics that can be looked at, such as the contribution of a table to the factors, the partial factor scores of each table, and the projection of those partial factor scores into the compromise space.
