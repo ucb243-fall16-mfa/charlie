@@ -23,8 +23,6 @@ Collate:
     'mfa.R'
     'print.R'
     'runExample.R'
-    'server.R'
-    'ui.R'
 RoxygenNote: 5.0.1
 Imports:
     methods,
