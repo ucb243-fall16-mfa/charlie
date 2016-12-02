@@ -42,3 +42,9 @@ print(analysis_result, tablenumber=3)
 ```
 
 As you can see, the function outputs the number of observations, tables, and components. It also plots the observations in terms of the compromise factors, and the partial factor scores and variable loadings for each table. The partial factor scores are simply the projections of a given table's variables into the compromise space for every observation. It is essentially saying *given this compromise space*, what would the points be if this table contained the only variables? The variable loadings for a table just display how much each variable in the table contributes to each componenet.
+
+### Shiny App
+To see these visualizations using a web menu, you can run the example shiny app:
+```{r, eval=FALSE}
+runExample()
+```

@@ -123,9 +123,7 @@ print(analysis_result, tablenumber=3)
 MFA - Shiny App
 ========================================================
 ```{r, eval=FALSE}
-library(shiny)
-setwd("path/to/package")
-runApp(".")
+runExample()
 ```
 
 MFA - Shiny App

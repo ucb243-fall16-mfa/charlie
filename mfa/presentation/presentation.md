@@ -147,9 +147,7 @@ MFA - Shiny App
 ========================================================
 
 ```r
-library(shiny)
-setwd("path/to/package")
-runApp(".")
+runExample()
 ```
 
 MFA - Shiny App
