@@ -2,7 +2,7 @@
 #
 
 library(shiny)
-
+library(mfa)
 
 shinyServer(function(input, output) {
 
