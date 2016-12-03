@@ -16,11 +16,14 @@ Please see the vignette [MFA Introduction](https://github.com/cmcneil/project-24
 
 Shiny App
 ---------
-To run the shiny app for the wine tasting experiment example:
+Two ways to run the shiny app for the wine tasting experiment example:
+
+You can download the package and run the following lines
 ```{r}
 library(mfa)
 mfa::runExample()
 ```
+Or you can click the webpage [link](https://liuanna.shinyapps.io/wines_app/) to interact with the shiny app without downloading anything to local.
 
 More
 ----

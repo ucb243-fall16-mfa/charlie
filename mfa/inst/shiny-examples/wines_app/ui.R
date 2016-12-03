@@ -1,7 +1,10 @@
 #Shinny app(MFA)
 #
-
 library(shiny)
+if(!require(mfa)){
+  devtools::install_github("cmcneil/project-243",subdir = "mfa",force = TRUE)
+}
+library(mfa)
 
 shinyUI(fluidPage(
 
