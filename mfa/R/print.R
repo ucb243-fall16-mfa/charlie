@@ -11,7 +11,7 @@
 #' @return A visualization table; also plots if any of parameters `compromise`, `pfs`,
 #' `loadings` are set to be TRUE
 #' 
-#' @importFrom graphics plot points text title
+#' @importFrom graphics plot points text title abline
 #' @rdname print
 #' @export
 
@@ -60,6 +60,8 @@ setMethod(
     # simple scatter-plot
     plot(x@cfs[,1],x@cfs[,2],type = "n",
          xlab = "first component", ylab = "second component")
+    abline(v=0)
+    abline(h=0)
     # plot points
     points(x@cfs[,1],x@cfs[,2], pch = 19, col = "blue")
     # plot text
@@ -96,6 +98,8 @@ setMethod(
     # simple scatter-plot
     plot(x@pfs[[i]][,1],x@pfs[[i]][,2],type = "n",
          xlab = "first component", ylab = "second component")
+    abline(v=0)
+    abline(h=0)
     # plot points for pfs
     points(x@pfs[[i]][,1],x@pfs[[i]][,2], pch = 19, col = "blue")
     # plot text for pfs
@@ -132,6 +136,8 @@ setMethod(
     # simple scatter-plot
     plot(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2],type = "n",
          xlab = "first component", ylab = "second component")
+    abline(v=0)
+    abline(h=0)
     # plot points for loadings
     points(x@loadings[x@sets[[i]],][,1], x@loadings[x@sets[[i]],][,2], pch = 17, col = "red")
     # plot text for loadings

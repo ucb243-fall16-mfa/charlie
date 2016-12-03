@@ -8,7 +8,7 @@ library(mfa)
 
 shinyUI(fluidPage(
 
-  titlePanel("MFA"),
+  titlePanel("Multiple Factor Analysis - Wine Tasting Experiment"),
   sidebarLayout(
     sidebarPanel(
 

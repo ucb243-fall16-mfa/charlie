@@ -10,12 +10,15 @@ shinyServer(function(input, output) {
 
   output$distPlot <- renderPlot({
     data(wines)
+    rownames(wines) = wines[,1]
     wines = wines[,2:54]
     sets = list(1:6,7:12,13:18,19:23,24:29,30:34,35:38,39:44,45:49,50:53)
     obj = mfa(data = wines, sets, center = TRUE, scale = TRUE)
 #Eigenvalues bar-chart
-    if (input$var == "Eigenvalues")
-    {barplot( obj@eigenvalues, main = "Eigenvalues" )}
+    if (input$var == "Eigenvalues"){
+      barplot(obj@eigenvalues, main ="Eigenvalues (largest to smallest)", space = 0)
+      axis(1,at = 0.5:11.5,labels=1:12)
+    }
 
 #a scatterplot of the common factor scores
     if (input$var == "Common factor scores")
